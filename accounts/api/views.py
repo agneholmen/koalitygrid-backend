@@ -1,5 +1,4 @@
-from django.conf import settings
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -13,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
-DEFAULT_PROFILE_PHOTO = '/media/profile_photos/default.png'
+DEFAULT_PROFILE_PHOTO = '/media/defaults/default.png'
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
@@ -94,7 +93,7 @@ def upload_profile_photo(request):
         
         try:
             # Delete old photo if it exists and isn't the default
-            if user.profile_photo and user.profile_photo.name != 'profile_photos/default.png':
+            if user.profile_photo and user.profile_photo.name != 'defaults/default.png':
                 default_storage.delete(user.profile_photo.name)
             user.profile_photo = photo
             user.save()
@@ -104,7 +103,7 @@ def upload_profile_photo(request):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'DELETE':
         try:
-            if user.profile_photo and user.profile_photo.name != 'profile_photos/default.png':
+            if user.profile_photo and user.profile_photo.name != 'defaults/default.png':
                 default_storage.delete(user.profile_photo.name)
             user.profile_photo = None
             user.save()
