@@ -1,0 +1,1 @@
+py -Xutf8 manage.py dumpdata formulas --indent 2 -o initial_data.json

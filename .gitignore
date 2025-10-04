@@ -1,0 +1,6 @@
+db.sqlite3
+.venv/
+*.pyc
+.env
+profile_photos/
+!profile_photos/default.png

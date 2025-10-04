@@ -1,0 +1,2324 @@
+[
+{
+  "model": "formulas.calculationtoolcategory",
+  "pk": 1,
+  "fields": {
+    "name": "Elektriska beräkningar"
+  }
+},
+{
+  "model": "formulas.calculationtoolcategory",
+  "pk": 2,
+  "fields": {
+    "name": "Motorer"
+  }
+},
+{
+  "model": "formulas.calculationtool",
+  "pk": 1,
+  "fields": {
+    "name": "Spänningsfall",
+    "description": "test",
+    "formula_key": "voltage-drop",
+    "formula_info": "",
+    "component": "",
+    "category": 1,
+    "created_by": 1,
+    "created_at": "2025-07-25T07:20:12.455Z",
+    "updated_at": "2025-08-27T15:27:37.115Z",
+    "enabled": false
+  }
+},
+{
+  "model": "formulas.calculationtool",
+  "pk": 2,
+  "fields": {
+    "name": "Ström",
+    "description": "Denna kalkylator hjälper dig att beräkna strömmen (Ampere) i en elektrisk krets baserat på de angivna parametrarna. Välj vilken typ av ström (likström, enfas eller trefas växelström) och vilken beräkningsmetod du vill använda. Fyll i de relevanta fälten för att få en korrekt beräkning.\r\n\r\nResultatet visar den beräknade strömmen i Ampere.",
+    "formula_key": "current",
+    "formula_info": "**Ohm's lag (Spänning / Resistans):**\r\n\r\n$$\r\nI = \\frac{V}{R}\r\n$$\r\n\r\n**Spänning / Impedans:**\r\n\r\n$$\r\nI = \\frac{V}{Z}\r\n$$\r\n\r\n**Spänning / Effekt (Enfas AC/DC):**\r\n\r\n$$\r\nI = \\frac{P}{V \\cdot \\cos\\phi} \\quad \\text{(Aktiv effekt } P \\text{)}\r\n\\\\\r\nI = \\frac{S}{V} \\quad \\text{(Skenbar effekt } S \\text{)}\r\n$$\r\n\r\n**Spänning / Effekt (Trefas AC):**\r\n\r\n$$\r\nI = \\frac{P}{\\sqrt{3} \\cdot V \\cdot \\cos\\phi} \\quad \\text{(Aktiv effekt } P \\text{)}\r\n\\\\\r\nI = \\frac{S}{\\sqrt{3} \\cdot V} \\quad \\text{(Skenbar effekt } S \\text{)}\r\n$$\r\n\r\n**Effekt / Impedans (Enfas AC/DC):**\r\n\r\n$$\r\nI = \\sqrt{\\frac{P}{Z \\cdot \\cos\\phi}} \\quad \\text{(Aktiv effekt } P \\text{)}\r\n\\\\\r\nI = \\sqrt{\\frac{S}{Z}} \\quad \\text{(Skenbar effekt } S \\text{)}\r\n$$\r\n\r\n**Effekt / Impedans (Trefas AC):**\r\n\r\n$$\r\nI = \\sqrt{\\frac{P}{\\sqrt{3} \\cdot Z \\cdot \\cos\\phi}} \\quad \\text{(Aktiv effekt } P \\text{)}\r\n\\\\\r\nI = \\sqrt{\\frac{S}{\\sqrt{3} \\cdot Z}} \\quad \\text{(Skenbar effekt } S \\text{)}\r\n$$\r\n\r\n**Effekt / Resistans (Enfas AC/DC):**\r\n\r\n$$\r\nI = \\sqrt{\\frac{P}{R}}\r\n$$\r\n\r\n**Effekt / Resistans (Trefas AC):**\r\n\r\n$$\r\nI = \\sqrt{\\frac{P}{\\sqrt{3} \\cdot R}}\r\n$$\r\n\r\n**Där:**\r\n\r\n- $I$ = Ström (Ampere)\r\n- $V$ = Spänning (Volt)\r\n- $P$ = Aktiv effekt (Watt)\r\n- $S$ = Skenbar effekt (Volt-Ampere)\r\n- $R$ = Resistans (Ohm)\r\n- $Z$ = Impedans (Ohm)\r\n- $\\cos\\phi$ = Effektfaktor (cosinus för fasvinkeln)\r\n- $\\sin\\phi$ = Sinus för fasvinkeln\r\n- $\\tan\\phi$ = Tangens för fasvinkeln\r\n- $\\phi$ = Fasvinkel i radianer eller grader",
+    "component": "CurrentCalculator",
+    "category": 1,
+    "created_by": 1,
+    "created_at": "2025-07-25T07:20:33.782Z",
+    "updated_at": "2025-08-27T15:27:33.219Z",
+    "enabled": true
+  }
+},
+{
+  "model": "formulas.calculationtool",
+  "pk": 3,
+  "fields": {
+    "name": "Batteritid",
+    "description": "Denna kalkylator hjälper dig att uppskatta hur länge ett batteri eller ett batteripaket kan driva en viss last. Fyll i fälten nedan för att få en korrekt beräkning.\r\n\r\n- **Anslutning:** Välj hur batterierna är anslutna. \"Singel\" för ett enskilt batteri. \"I serie\" adderar spänningen men behåller samma kapacitet. \"Parallellt\" adderar kapaciteten men behåller samma spänning.\r\n- **Antal batterier:** Antalet enskilda batterier i ditt system. Detta fält låses till 1 om \"Singel\" är valt för anslutning.\r\n- **Spänning (V):** Den nominella spänningen för ett enskilt batteri i Volt.\r\n- **Kapacitet (Ah/kWh):** Ett enskilt batteris kapacitet i Ampere-timmar (Ah) eller KiloWatt-timmar (kWh). Om kWh anges konverteras det till Ah baserat på den totala systemspänningen.\r\n- **Last (W, A, mA, VA):** Den elektriska lasten som batteriet ska driva. Kan anges i Watt (W), Ampere (A), milliAmpere (mA) eller Volt-Ampere (VA). Lasten i Ampere är avgörande för beräkningen.\r\n- **Peukerts koefficient:** En faktor som beskriver hur ett batteris användbara kapacitet minskar vid högre urladdningsströmmar. Ett värde på 1 innebär att batteriets kapacitet är konstant oavsett urladdningsström (idealt batteri). Ett högre värde (typiskt mellan 1 och 2) indikerar att den användbara kapaciteten minskar mer vid högre strömmar. Standardvärdet är 1.\r\n- **Djup för Utflöde (DOD):** Procentandelen av batteriets totala kapacitet som används under en urladdningscykel. Att inte ladda ur batteriet helt (d.v.s. använda ett DOD under 100%) kan förlänga batteriets livslängd.\r\n\r\nResultatet visar den beräknade batteritiden i timmar, samt total spänning, kapacitet, lastström och den antagna verkningsgraden (100%).",
+    "formula_key": "battery-life",
+    "formula_info": "$$\r\nt = H \\cdot \\left(\\frac{C}{I \\cdot H}\\right)^k\r\n$$\r\n\r\n**Där:**\r\n\r\n- $t$ = Tid (Timmar)\r\n- $H$ = Nominell urladdningstid = 20 (Timmar)\r\n- $C$ = Kapacitet (Ah) (*Konverteras från kWh om valt*)\r\n- $I$ = Last (A)\r\n- $k$ = Peukert koefficient (1 - 2)",
+    "component": "BatteryLifeCalculator",
+    "category": 1,
+    "created_by": 1,
+    "created_at": "2025-07-25T07:21:42.431Z",
+    "updated_at": "2025-08-27T16:11:39.211Z",
+    "enabled": true
+  }
+},
+{
+  "model": "formulas.calculationtool",
+  "pk": 4,
+  "fields": {
+    "name": "Max ledningslängd (ΔV)",
+    "description": "test",
+    "formula_key": "max-wire-length",
+    "formula_info": "",
+    "component": "",
+    "category": 1,
+    "created_by": 1,
+    "created_at": "2025-07-25T07:22:20.665Z",
+    "updated_at": "2025-08-27T15:27:26.914Z",
+    "enabled": false
+  }
+},
+{
+  "model": "formulas.calculationtool",
+  "pk": 5,
+  "fields": {
+    "name": "Kortslutningsström med transformatorstation",
+    "description": "test",
+    "formula_key": "short-circuit-current",
+    "formula_info": "",
+    "component": "",
+    "category": 1,
+    "created_by": 1,
+    "created_at": "2025-07-25T07:23:03.456Z",
+    "updated_at": "2025-08-27T15:27:22.514Z",
+    "enabled": false
+  }
+},
+{
+  "model": "formulas.conversiontool",
+  "pk": 1,
+  "fields": {
+    "name": "Omvandling Effekt",
+    "description": "",
+    "formula_info": "",
+    "component": "",
+    "created_by": 1,
+    "created_at": "2025-08-28T08:37:27.362Z",
+    "updated_at": "2025-10-04T10:40:52.942Z",
+    "enabled": true
+  }
+},
+{
+  "model": "formulas.conversiontool",
+  "pk": 2,
+  "fields": {
+    "name": "Omvandling Area",
+    "description": "",
+    "formula_info": "",
+    "component": "",
+    "created_by": 1,
+    "created_at": "2025-08-28T08:37:45.826Z",
+    "updated_at": "2025-08-28T08:37:45.826Z",
+    "enabled": true
+  }
+},
+{
+  "model": "formulas.conversiontool",
+  "pk": 3,
+  "fields": {
+    "name": "Omvandling Spänning",
+    "description": "",
+    "formula_info": "",
+    "component": "",
+    "created_by": 1,
+    "created_at": "2025-08-28T08:37:58.633Z",
+    "updated_at": "2025-08-28T08:37:58.633Z",
+    "enabled": true
+  }
+},
+{
+  "model": "formulas.conversiontool",
+  "pk": 4,
+  "fields": {
+    "name": "Omvandling Längd",
+    "description": "Detta verktyg omvandlar längd mellan olika enheter som kilometer, meter, centimeter, millimeter, fot, tum, miles och yards.",
+    "formula_info": "# Omvandlingsfaktorer\r\n\r\n- 1 km = 1000 m\r\n- 1 m = 100 cm = 1000 mm\r\n- 1 ft = 0.3048 m\r\n- 1 in = 0.0254 m\r\n- 1 mile = 1609.34 m\r\n- 1 yd = 0.9144 m",
+    "component": "LengthConverter",
+    "created_by": 1,
+    "created_at": "2025-08-28T08:38:06.816Z",
+    "updated_at": "2025-08-28T12:08:16.598Z",
+    "enabled": true
+  }
+},
+{
+  "model": "formulas.conversiontool",
+  "pk": 5,
+  "fields": {
+    "name": "Omvandling Energi",
+    "description": "Detta verktyg omvandlar energi mellan olika enheter som Joule, Watt-timmar, BTU och kalorier.",
+    "formula_info": "# Omvandlingsfaktorer:\r\n\r\n- 1 kJ = 1000 J\r\n- 1 MJ = 1 000 000 J\r\n- 1 Wh = 3600 J\r\n- 1 kWh = 3 600 000 J\r\n- 1 MWh = 3 600 000 000 J\r\n- 1 BTU = 1055.06 J\r\n- 1 cal = 4.184 J\r\n- 1 kcal = 4184 J\r\n- 1 Mcal = 4 184 000 J",
+    "component": "EnergyConverter",
+    "created_by": 1,
+    "created_at": "2025-08-28T08:38:19.161Z",
+    "updated_at": "2025-10-04T10:04:16.596Z",
+    "enabled": true
+  }
+},
+{
+  "model": "formulas.conversiontool",
+  "pk": 6,
+  "fields": {
+    "name": "Omvandling Temperatur",
+    "description": "",
+    "formula_info": "",
+    "component": "",
+    "created_by": 1,
+    "created_at": "2025-08-28T08:38:26.794Z",
+    "updated_at": "2025-08-28T08:38:26.794Z",
+    "enabled": true
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 1,
+  "fields": {
+    "name": "A/D-omvandlare",
+    "description": "Analog/Digitalomvandlare, enhet för omvandling av analog signal till digital"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 2,
+  "fields": {
+    "name": "ABC-brytare",
+    "description": "Brytare för sammankoppling av skenor i ställverk"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 3,
+  "fields": {
+    "name": "accelerationssignal",
+    "description": "Signal till skydd i angränsande stationer med syfte att minska felbortkopplingstiden"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 4,
+  "fields": {
+    "name": "automatsäkring",
+    "description": "Dvärgbrytare, som efter felavhjälpning är återställningsbar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 5,
+  "fields": {
+    "name": "avståndsmanöver",
+    "description": "Manöver av objekt från kontrollrum eller driftcentral"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 6,
+  "fields": {
+    "name": "A-WAN",
+    "description": "SvK:s wide area network för insamling av bland annat störningsregistrering. A-WAN förbinder SvK:s analyscenter med samtliga ställverk, stationer och telebodar i Sverige"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 7,
+  "fields": {
+    "name": "BBL",
+    "description": "Brytarblockering"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 8,
+  "fields": {
+    "name": "belastningsprofil",
+    "description": "Strömbelastning som funktion av tiden"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 9,
+  "fields": {
+    "name": "bestående fel",
+    "description": "Kvarstående fel"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 10,
+  "fields": {
+    "name": "BF",
+    "description": "Bärfrekvens"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 11,
+  "fields": {
+    "name": "BFS",
+    "description": "Brytarfelsskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 12,
+  "fields": {
+    "name": "brytarsynkronisering",
+    "description": "Fasvis till- och frånslag av brytare så att detta sker i det mest gynnsamma läget för det anslutande nätet och för det av brytaren matade objektet"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 13,
+  "fields": {
+    "name": "bärfrekvens",
+    "description": "Teleförbindelse via kraftledning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 14,
+  "fields": {
+    "name": "börvärde",
+    "description": "En reglerad storhets önskade värde i ett visst ögonblick"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 15,
+  "fields": {
+    "name": "cirkulationsström",
+    "description": "Ström som uppkommer i parallella transformatorer med olika omsättningsförhållanden"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 16,
+  "fields": {
+    "name": "DDN",
+    "description": "Driftdatanätet"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 17,
+  "fields": {
+    "name": "debiteringsmätning",
+    "description": "Energimätning för debitering"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 18,
+  "fields": {
+    "name": "definitivutlösning",
+    "description": "Utlösning från skydd, vakter eller automatiker där SÅI saknas eller utlösning efter inkoppling från SÅI mot kvarstående fel"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 19,
+  "fields": {
+    "name": "deltalindning",
+    "description": "Lindning kopplad i delta, utan nollpunkt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 20,
+  "fields": {
+    "name": "diazedsäkring",
+    "description": "Smältsäkring"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 21,
+  "fields": {
+    "name": "differentialström",
+    "description": "Skillnad mellan två eller flera strömmar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 22,
+  "fields": {
+    "name": "direktjordning",
+    "description": "Lågohmig jordning av ett systems nollpunkt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 23,
+  "fields": {
+    "name": "direktmanöver",
+    "description": "Manöver görs vid objektet"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 24,
+  "fields": {
+    "name": "driftform",
+    "description": "Anger varifrån en station övervakas"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 25,
+  "fields": {
+    "name": "driftlarm",
+    "description": "Larm vid onormala händelser eller drifttillstånd i anläggning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 26,
+  "fields": {
+    "name": "DS",
+    "description": "Strömdifferentialskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 27,
+  "fields": {
+    "name": "DUBA",
+    "description": "DriftUppByggnadsAutomatik"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 28,
+  "fields": {
+    "name": "DUBA-plan",
+    "description": "Funktionsplan för varje enskild DUBA"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 29,
+  "fields": {
+    "name": "dubbelfrekvensmeter",
+    "description": "Instrument tillhörande FPS-utrustning för visning av båda spänningarnas frekvens"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 30,
+  "fields": {
+    "name": "dubbelindikering",
+    "description": "Lägesindikering via två kontakter, den ena normalt öppen och den andra normalt sluten"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 31,
+  "fields": {
+    "name": "dubbelvoltmeter",
+    "description": "Instrument tillhörande FPS-utrustning för visning av båda spänningarnas amplitud"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 32,
+  "fields": {
+    "name": "DWDM",
+    "description": "Wavelength division multiplexing. En multiplexteknik för att optiskt blanda olika våglängder"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 33,
+  "fields": {
+    "name": "dödband",
+    "description": "Hysteres, dvs intervall inom vilket en insignal ej påverkar utsignalen"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 34,
+  "fields": {
+    "name": "effektbrytare",
+    "description": "Brytare som kan koppla felström"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 35,
+  "fields": {
+    "name": "EK",
+    "description": "Effektkondensator. Benämningen används för både shuntkondensatorer och seriekondensatorer"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 36,
+  "fields": {
+    "name": "EMC",
+    "description": "ElectroMagnetic Compatibility"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 37,
+  "fields": {
+    "name": "enkelindikering",
+    "description": "Indikering via en kontakt, antingen öppen eller sluten"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 38,
+  "fields": {
+    "name": "enlinjeschema",
+    "description": "Schema över ett ställverk där trefassystem redovisas i enlinjeformat"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 39,
+  "fields": {
+    "name": "enpolig manöver",
+    "description": "1. För manöver erfordras enbart slutning av en kontakt i manöverkretsen. 2. Manöver av brytare i endast en fas. Tex vid enfasig återinkoppling"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 40,
+  "fields": {
+    "name": "enpoligt manöverdon",
+    "description": "Ett manöverdon per fas"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 41,
+  "fields": {
+    "name": "ESD",
+    "description": "Electrostatic discharge, avledning av statisk elektricitet"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 42,
+  "fields": {
+    "name": "EX",
+    "description": "Explosionsvakt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 43,
+  "fields": {
+    "name": "extremspänningsautomatik",
+    "description": "Automatik avsedd att skydda kraftsystemet mot extrema spänningar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 44,
+  "fields": {
+    "name": "fack",
+    "description": "Enhet bestående av funktionellt sammanhörande apparater utgörande del av ställverk"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 45,
+  "fields": {
+    "name": "fackskåp",
+    "description": "Gränssnitt mellan ställverk och utrustning i manöverbyggnad"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 46,
+  "fields": {
+    "name": "FAT",
+    "description": "Factory acceptance test. Acceptansprov hos leverantören"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 47,
+  "fields": {
+    "name": "fellokalisering",
+    "description": "Fastställande av var fel inträffat"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 48,
+  "fields": {
+    "name": "fellägesinformation",
+    "description": "Information om felaktigt läge på någon primärapparat"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 49,
+  "fields": {
+    "name": "fjärr",
+    "description": "Driftform där manöver sker via fjärrkontroll"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 50,
+  "fields": {
+    "name": "fjärrkontroll",
+    "description": "Manöver av objekt från driftcentral"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 51,
+  "fields": {
+    "name": "flerpunktsledning",
+    "description": "Ledning med ett eller flera påstick"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 52,
+  "fields": {
+    "name": "FPS-automatik",
+    "description": "Automatik för kontrollerad tillkoppling vid fasning, parallellning och spänningssättning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 53,
+  "fields": {
+    "name": "FTP",
+    "description": "File transfer protocol används för fjärröverföring av bland annat störningsfiler"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 54,
+  "fields": {
+    "name": "fulltransformator",
+    "description": "Transformator med galvaniskt skilda lindningar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 55,
+  "fields": {
+    "name": "funktionsorienterad",
+    "description": "Uppdelad funktionsvis"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 56,
+  "fields": {
+    "name": "FUT",
+    "description": "Fjärrutlösning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 57,
+  "fields": {
+    "name": "FÅI",
+    "description": "Fördröjd återinkoppling"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 58,
+  "fields": {
+    "name": "förgivningstid",
+    "description": "Den tid innan faslikhet som FPS-don måste ge tillslagsimpuls"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 59,
+  "fields": {
+    "name": "förregling",
+    "description": "Tillfällig låsning för inväntande av frigivningsvillkor"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 60,
+  "fields": {
+    "name": "G",
+    "description": "Gasvakt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 61,
+  "fields": {
+    "name": "gasvakt",
+    "description": "Indikerar gasutveckling i transformator eller reaktor"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 62,
+  "fields": {
+    "name": "genomföring",
+    "description": "Anordning för att leda en ström genom apparathölje och samtidigt isolera strömbanan från höljet"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 63,
+  "fields": {
+    "name": "genomföringsströmtransformator",
+    "description": "Strömtransformator placerad i genomföring"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 64,
+  "fields": {
+    "name": "GGIO",
+    "description": "Generic process I/O. Logisk nod definierad i IEC 61850"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 65,
+  "fields": {
+    "name": "GIS",
+    "description": "1. Gasisolerat Ställverk 2. Geographic information system"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 66,
+  "fields": {
+    "name": "gnistgap",
+    "description": "Överspänningsskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 67,
+  "fields": {
+    "name": "GOOSE",
+    "description": "Generic object oriented substation event. Används för snabb kommunikation mellan servrar på stationsbussen"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 68,
+  "fields": {
+    "name": "GPS",
+    "description": "Global positioning system. System för satellitnavigering. Används som noggrann tidkälla"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 69,
+  "fields": {
+    "name": "handfasning",
+    "description": "Manuellt tillslag av brytare där operatören kontrollerar inkopplingsförutsättningarna på synkroniseringsmätsatsen"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 70,
+  "fields": {
+    "name": "hjälpfrånskiljare",
+    "description": "Frånskiljare för anslutning av objekt till hjälpskena"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 71,
+  "fields": {
+    "name": "hjälpkraft",
+    "description": "Kraftförsörjning av kontrollanläggningsdelar och annan utrustning som drivs med likström"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 72,
+  "fields": {
+    "name": "hjälpspänning",
+    "description": "Matningsspänning avsedd för kontrollanläggning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 73,
+  "fields": {
+    "name": "HK",
+    "description": "Huvudkontakter på manöverdon"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 74,
+  "fields": {
+    "name": "HMI",
+    "description": "Human machine interface. Finns som central enhet för styrning och övervakning av stationen men även på IED:er för hantering av IED:n"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 75,
+  "fields": {
+    "name": "HS",
+    "description": "Händelseskrivare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 76,
+  "fields": {
+    "name": "HVDC",
+    "description": "High voltage direct current, högspänd likström"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 77,
+  "fields": {
+    "name": "händelseskrivare",
+    "description": "Skrivare för händelseregistrering"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 78,
+  "fields": {
+    "name": "högohmig jordning",
+    "description": "Högohmig jordning av ett systems nollpunkt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 79,
+  "fields": {
+    "name": "I/O",
+    "description": "Input/Output, in- och utgångsenheter"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 80,
+  "fields": {
+    "name": "IED",
+    "description": "Intelligent electronic device. En konfigurerbar, parametrerbar eller programmerbar enhet som innehåller olika funktioner såsom skydd, styrning och övervakning, störningsregistrering m.m."
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 81,
+  "fields": {
+    "name": "inverttidrelä",
+    "description": "Relä vars funktionstid är omvänt proportionell mot mätstorheten"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 82,
+  "fields": {
+    "name": "IRIG-B",
+    "description": "Standardiserat tidsformat"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 83,
+  "fields": {
+    "name": "ISm",
+    "description": "Överströmsskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 84,
+  "fields": {
+    "name": "ISmLK",
+    "description": "Överströmsskydd för lindningskopplare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 85,
+  "fields": {
+    "name": "isolationsövervakning",
+    "description": "Övervakning av ett systems isolation till jord"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 86,
+  "fields": {
+    "name": "JDS",
+    "description": "Jordströmsdifferentialskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 87,
+  "fields": {
+    "name": "jordfelsslinga",
+    "description": "Strömslinga som leder jordfelsström vid jordfel"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 88,
+  "fields": {
+    "name": "jordningskopplare",
+    "description": "Frånskiljare med vars hjälp arbetsjordning kan utföras"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 89,
+  "fields": {
+    "name": "jordningspunkt",
+    "description": "Fast punkt på ledare för anslutning av jordningsverktyg"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 90,
+  "fields": {
+    "name": "JS",
+    "description": "Jordströmsskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 91,
+  "fields": {
+    "name": "JSr",
+    "description": "Riktningsfunktion i jordströmsskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 92,
+  "fields": {
+    "name": "kabelfelsövervakning",
+    "description": "Mätfunktion som möjliggör feldetektering på parallella kabelgrupper"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 93,
+  "fields": {
+    "name": "kabelpart",
+    "description": "Isolerad ledare i kabel"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 94,
+  "fields": {
+    "name": "kabelskärm",
+    "description": "Kapsling runt kabel avsedd att skydda mot elektromagnetiska störningar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 95,
+  "fields": {
+    "name": "knivsäkringspatron",
+    "description": "Säkring"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 96,
+  "fields": {
+    "name": "kompenseringsanläggning",
+    "description": "Anläggning för kompensering av reaktiv effekt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 97,
+  "fields": {
+    "name": "kondensatorspänningstransformator",
+    "description": "Spänningstransformator med kapacitiv spänningsdelare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 98,
+  "fields": {
+    "name": "konstanttidrelä",
+    "description": "Relä vars funktionstid är oberoende av den uppmätta mätstorheten"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 99,
+  "fields": {
+    "name": "koppling",
+    "description": "Åtgärd som innebär ändring av kopplingsläge eller anbringande eller avlägsnande av jordning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 100,
+  "fields": {
+    "name": "kopplingslåda",
+    "description": "Låda avsedd för sammankoppling av kablar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 101,
+  "fields": {
+    "name": "kopplingsstation",
+    "description": "Anläggning för fördelning av elektrisk energi"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 102,
+  "fields": {
+    "name": "kopplingsstycke",
+    "description": "Primär ledare som i vissa fall är demonterbar."
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 103,
+  "fields": {
+    "name": "kvarstående fel",
+    "description": "Fel som ej upphört"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 104,
+  "fields": {
+    "name": "laddningslikriktare",
+    "description": "Likriktare avsedd för matning av LS-system samt laddning av batterier"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 105,
+  "fields": {
+    "name": "LAN",
+    "description": "Local area network. Stationsbuss enligt IEC 61850 brukar benämnas LAN"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 106,
+  "fields": {
+    "name": "LCD",
+    "description": "Liquid crystal display, teckenfönster"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 107,
+  "fields": {
+    "name": "LDS",
+    "description": "Längsdifferentialskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 108,
+  "fields": {
+    "name": "LED",
+    "description": "Light emitting diode, lysdiod"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 109,
+  "fields": {
+    "name": "ledningsbrytare",
+    "description": "Brytare avsedd för till- och från-koppling av ledning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 110,
+  "fields": {
+    "name": "ledningsfel",
+    "description": "Fel på ledning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 111,
+  "fields": {
+    "name": "ledningsvinkel",
+    "description": "Ledningens impedansvinkel"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 112,
+  "fields": {
+    "name": "LHC",
+    "description": "Likströmshuvudcentral"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 113,
+  "fields": {
+    "name": "likriktare",
+    "description": "Apparat för omvandling av växelström till likström"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 114,
+  "fields": {
+    "name": "lindningskopplarautomatik",
+    "description": "Automatik för spänningsreglering via lindningskopplare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 115,
+  "fields": {
+    "name": "lindningskopplare",
+    "description": "Apparat för reglering av transformatoromsättning under drift"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 116,
+  "fields": {
+    "name": "ljusbågsvakt",
+    "description": "Indikerar ljusbågsfel"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 117,
+  "fields": {
+    "name": "LK-automatik",
+    "description": "Lindningskopplarautomatik"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 118,
+  "fields": {
+    "name": "LK-läge",
+    "description": "Lindningskopplarläge"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 119,
+  "fields": {
+    "name": "lokalkontroll",
+    "description": "Manöver av objekt sker lokalt i stationen"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 120,
+  "fields": {
+    "name": "lokalkraft",
+    "description": "400V kraftförsörjning av en station"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 121,
+  "fields": {
+    "name": "LS-omriktare",
+    "description": "Utrustning för konvertering av likström till likström"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 122,
+  "fields": {
+    "name": "LS-system",
+    "description": "Likströmssystem"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 123,
+  "fields": {
+    "name": "LT",
+    "description": "Lokalkrafttransformator"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 124,
+  "fields": {
+    "name": "manöverkvittensställare",
+    "description": "Strömställare för manövrering och lägesindikering"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 125,
+  "fields": {
+    "name": "marklinenät",
+    "description": "I marken förlagda hopkopplade jordledare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 126,
+  "fields": {
+    "name": "maskat nät",
+    "description": "Nät med flera samtidiga matningsvägar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 127,
+  "fields": {
+    "name": "mellanlägesvakt",
+    "description": "Indikerar lindningskopplare i mellanläge"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 128,
+  "fields": {
+    "name": "MK-ställare",
+    "description": "Manöverkvittensställare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 129,
+  "fields": {
+    "name": "ML3",
+    "description": "Elmiljöklass enligt SS 436 1503"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 130,
+  "fields": {
+    "name": "ML4",
+    "description": "Elmiljöklass enligt SS 436 1503"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 131,
+  "fields": {
+    "name": "MMC",
+    "description": "Man machine communication. Se HMI."
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 132,
+  "fields": {
+    "name": "MMK",
+    "description": "Människa maskin kommunikation. Se HMI."
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 133,
+  "fields": {
+    "name": "MTBF",
+    "description": "Mean time between failures, medelvärde av tid mellan två fel i en utrustning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 134,
+  "fields": {
+    "name": "MVO",
+    "description": "Mätvärdesomvandlare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 135,
+  "fields": {
+    "name": "mätkärna",
+    "description": "Mättransformatorkärna avsedd för mätning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 136,
+  "fields": {
+    "name": "mätspänning",
+    "description": "Spänning avsedd att användas som mätstorhet till kontrollutrustning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 137,
+  "fields": {
+    "name": "mätsteg",
+    "description": "Delfunktion i reläskydd som ger funktion vid inställt värde med inställd fördröjning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 138,
+  "fields": {
+    "name": "mättransformator",
+    "description": "Transformator avsedd för omvandling av primära strömmar och spänningar till för kontrollanläggningen lämpliga nivåer"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 139,
+  "fields": {
+    "name": "mätvärdesomvandlare",
+    "description": "Enhet för omvandling av mätstorhet till för kontrollanläggningen lämplig hjälpstorhet"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 140,
+  "fields": {
+    "name": "N",
+    "description": "Nivåvakt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 141,
+  "fields": {
+    "name": "NIS",
+    "description": "Nollpunktsströmskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 142,
+  "fields": {
+    "name": "nod",
+    "description": "Knutpunkt i exempelvis datanät"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 143,
+  "fields": {
+    "name": "NTP",
+    "description": "Network Time Protocol är ett protokoll för att synkronisera tiden i ett nätverk med varierande svarstider"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 144,
+  "fields": {
+    "name": "NUS",
+    "description": "Nollföljdsspänningsskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 145,
+  "fields": {
+    "name": "när",
+    "description": "Driftform där manöver sker lokalt i stationen"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 146,
+  "fields": {
+    "name": "närsignal",
+    "description": "Felsignaler och larm ges lokalt i stationen"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 147,
+  "fields": {
+    "name": "nätvärn",
+    "description": "Se systemvärn"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 148,
+  "fields": {
+    "name": "nödeffekt",
+    "description": "Automatisk effektändring vid frekvensstörning eller systemvärnsingrepp"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 149,
+  "fields": {
+    "name": "nödlarm",
+    "description": "Larm då personer befinner sig i fara"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 150,
+  "fields": {
+    "name": "objektsbrytare",
+    "description": "Brytare avsedd för in och urkoppling av visst objekt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 151,
+  "fields": {
+    "name": "objektsdator",
+    "description": "Dator som innehåller funktioner för enbart ett objekt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 152,
+  "fields": {
+    "name": "objektsorienterad",
+    "description": "Uppdelad objektsvis"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 153,
+  "fields": {
+    "name": "ok-lindning",
+    "description": "Hjälpkraftlindning på krafttransformator"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 154,
+  "fields": {
+    "name": "omkopplingsautomatik",
+    "description": "Automatik för omkoppling mellan olika matningsvägar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 155,
+  "fields": {
+    "name": "omsättning",
+    "description": "Förhållande mellan märkspänning eller märkström på transformators respektive sidor"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 156,
+  "fields": {
+    "name": "P",
+    "description": "Tryckvakt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 157,
+  "fields": {
+    "name": "parallell överföring",
+    "description": "Dataöverföring via flera parallella ledare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 158,
+  "fields": {
+    "name": "parallellström",
+    "description": "Ström som leds via parallella matningsvägar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 159,
+  "fields": {
+    "name": "parametrera",
+    "description": "Ställa in parametrar på t.ex. reläskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 160,
+  "fields": {
+    "name": "PDH",
+    "description": "Plesiochronus digital hierarchy, standard för telekommunikation"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 161,
+  "fields": {
+    "name": "pendlingsregistrering",
+    "description": "Registrering av effektpendlingar i kraftsystemet"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 162,
+  "fields": {
+    "name": "pendlingsspärr",
+    "description": "Funktion som detekterar effektpendling och blockerar reläskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 163,
+  "fields": {
+    "name": "pendlingsutlösning",
+    "description": "Funktion som detekterar effektpendling och initierar utlösning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 164,
+  "fields": {
+    "name": "PFK",
+    "description": "ProduktionsFrånKoppling"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 165,
+  "fields": {
+    "name": "PL3",
+    "description": "Störprovningsklass, enligt SS 436 1503"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 166,
+  "fields": {
+    "name": "PL4",
+    "description": "Störprovningsklass, enligt SS 436 1503"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 167,
+  "fields": {
+    "name": "plint",
+    "description": "Kopplingsplint, för sammankoppling av ledare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 168,
+  "fields": {
+    "name": "PLK",
+    "description": "Tryckvakt för lindningskopplare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 169,
+  "fields": {
+    "name": "PMU",
+    "description": "Phasor measurement unit"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 170,
+  "fields": {
+    "name": "pollning",
+    "description": "Avfrågning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 171,
+  "fields": {
+    "name": "primärprov",
+    "description": "Prov där strömmar och spänningar anbringas på primäranläggningen"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 172,
+  "fields": {
+    "name": "provdon",
+    "description": "Anordning för anslutning av provutrustning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 173,
+  "fields": {
+    "name": "provinkoppling",
+    "description": "Inkopplingsförsök av utlöst objekt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 174,
+  "fields": {
+    "name": "pumpning",
+    "description": "Upprepade tillkopplingar mot kvarstående fel"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 175,
+  "fields": {
+    "name": "pumpskyddsfunktion",
+    "description": "Skyddsfunktion mot upprepade inkopplingar mot kvarstående fel"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 176,
+  "fields": {
+    "name": "påstick",
+    "description": "Ledning ansluten direkt till huvudledning utan ställverk i anslutningspunkten"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 177,
+  "fields": {
+    "name": "Q",
+    "description": "Strömningsvakt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 178,
+  "fields": {
+    "name": "radialmatning",
+    "description": "Matning via endast en matningsväg"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 179,
+  "fields": {
+    "name": "radiolänk",
+    "description": "Teleförbindelse via radio"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 180,
+  "fields": {
+    "name": "rak manöver",
+    "description": "Temporär förbikoppling av fasningsutrustning för att kunna göra tillslag av brytare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 181,
+  "fields": {
+    "name": "reläskyddsdator",
+    "description": "Dator som innehåller reläskydd som betjänar ett objekt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 182,
+  "fields": {
+    "name": "reläskyddskanal",
+    "description": "Kanal för telesamverkan mellan reläskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 183,
+  "fields": {
+    "name": "reservbrytare",
+    "description": "Brytare som via hjälpskena kan ersätta annan brytare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 184,
+  "fields": {
+    "name": "reservlarm",
+    "description": "Ger larm då ordinarie felsignalsystem eller fjärrkontrollmöjligheten av en station ej fungerar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 185,
+  "fields": {
+    "name": "reservstyrning",
+    "description": "Manöver av brytare och frånskiljare då ordinarie manöversystem ej fungerar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 186,
+  "fields": {
+    "name": "RSK",
+    "description": "Reläskyddskommunikation"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 187,
+  "fields": {
+    "name": "RSTP",
+    "description": "Rapid spanning tree protocol. Används för att koppla om trafik på stationsbuss vid fel i någon switch"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 188,
+  "fields": {
+    "name": "RTU",
+    "description": "Remote terminal unit. Utrustning för kommunikation med driftcentral"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 189,
+  "fields": {
+    "name": "SAT",
+    "description": "Site acceptance test. Prov i anläggning där entreprenören visar att anläggningen uppfyller ställda krav"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 190,
+  "fields": {
+    "name": "SCD",
+    "description": "Station Configuration Description. Filtyp definierad i IEC 61850"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 191,
+  "fields": {
+    "name": "SCL",
+    "description": "Station Confuguration Language. Definierat i IEC 61850"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 192,
+  "fields": {
+    "name": "SD",
+    "description": "Stationsdator. En eller flera datorer som handhar fler än ett objekt och som samtidigt innehåller stationsgemensamma funktioner"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 193,
+  "fields": {
+    "name": "SDH",
+    "description": "Synchronus digital hierarchy, standard för digital höghastighetskommunikation"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 194,
+  "fields": {
+    "name": "sektioneringsbrytare",
+    "description": "Brytare avsedd för sektionering av ställverk"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 195,
+  "fields": {
+    "name": "sekundär märkspänning",
+    "description": "Märkspänning på transformators sekundärsida"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 196,
+  "fields": {
+    "name": "sekundär märkström",
+    "description": "Märkström på transformators sekundärsida"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 197,
+  "fields": {
+    "name": "sekundärprov",
+    "description": "Prov som utförs i mättransformators sekundärkrets"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 198,
+  "fields": {
+    "name": "seriefrånskiljare",
+    "description": "Med brytare seriekopplad frånskiljare utan avgrening däremellan"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 199,
+  "fields": {
+    "name": "seriekompensering",
+    "description": "Reaktiv effektkompensering med hjälp av seriekondensator"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 200,
+  "fields": {
+    "name": "seriell överföring",
+    "description": "Dataöverföring via enbart en ledare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 201,
+  "fields": {
+    "name": "SF6",
+    "description": "Svavelhexaflourid, isolerande gas"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 202,
+  "fields": {
+    "name": "skyddszon",
+    "description": "Område avsett att skyddas av ett visst reläskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 203,
+  "fields": {
+    "name": "slack",
+    "description": "Se kopplingsstycke"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 204,
+  "fields": {
+    "name": "SOTF",
+    "description": "Switch-on-to-fault. Funktion för snabb frånkoppling vid tillslag mot fel"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 205,
+  "fields": {
+    "name": "sparkopplad",
+    "description": "Transformator i vilken minst två lindningar har en gemensam del (stamlindningen)"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 206,
+  "fields": {
+    "name": "spänningsgodhet",
+    "description": "Sammanfattande kvalitetsbegrepp för spänning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 207,
+  "fields": {
+    "name": "spänningskollaps",
+    "description": "Kraftsystemet förmår ej att upprätthålla avsedda spänningsnivåer"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 208,
+  "fields": {
+    "name": "spänningsreversering",
+    "description": "Fasvridning av mätspänning till distansskydd vid fel på seriekompenserad ledning där seriekondensatorns reaktans är större än ledningensreaktansen fram till felstället"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 209,
+  "fields": {
+    "name": "spänningstransformator",
+    "description": "Transformator avsedd för omvandling av primära spänningar till för kontrollanläggningen lämpliga nivåer"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 210,
+  "fields": {
+    "name": "SS-skydd",
+    "description": "Samlingsskeneskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 211,
+  "fields": {
+    "name": "stationsdator",
+    "description": "En eller flera datorer som handhar fler än ett objekt och som samtidigt innehåller stationsgemensamma funktioner"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 212,
+  "fields": {
+    "name": "steg",
+    "description": "Mätsteg"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 213,
+  "fields": {
+    "name": "STINA",
+    "description": "Insamlingssystem för störningsregistreringar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 214,
+  "fields": {
+    "name": "strömbegränsare",
+    "description": "Apparat vars uppgift är att begränsa eventuella överströmmar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 215,
+  "fields": {
+    "name": "strömningsvakt",
+    "description": "Indikerar för låg strömningshastighet i kylsystem för transformator eller reaktor"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 216,
+  "fields": {
+    "name": "strömreversering",
+    "description": "Kan uppstå i maskade nät med korta ledningar då det vid ledningsfel löser först i ena änden och felströmmen på angränsande ledning då byter riktning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 217,
+  "fields": {
+    "name": "strömriktare",
+    "description": "Apparat för omvandling av växelström till/från likström eller till växelström av annan frekvens"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 218,
+  "fields": {
+    "name": "strömtransformator",
+    "description": "Transformator avsedd för omvandling av primära strömmar till för kontrollanläggningen lämpliga nivåer"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 219,
+  "fields": {
+    "name": "störningsskrivare",
+    "description": "Utrustning för registrering av analoga och binära signaler vid feltillstånd i kraftnätet"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 220,
+  "fields": {
+    "name": "Sub (1/2)",
+    "description": "Uppdelning av system i två av varandra oberoende delar med liknande funktion"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 221,
+  "fields": {
+    "name": "SWAN",
+    "description": "SvK:s gamla wide area network för insamling av bland annat störningsregistrering. SWAN förbinder SvK:s analyscenter med samtliga ställverk, stationer och telebodar i Sverige."
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 222,
+  "fields": {
+    "name": "SVC",
+    "description": "Static var compensator, anläggning för styrbar reaktiv effektkompensering"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 223,
+  "fields": {
+    "name": "svävning",
+    "description": "Frekvensskillnad mellan två system"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 224,
+  "fields": {
+    "name": "svävningstid",
+    "description": "Tid det tar att faslikhet uppstår mellan två nät där frekvensskillnad föreligger"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 225,
+  "fields": {
+    "name": "synkroniseringsmätsats",
+    "description": "Mätinstrument för handfasning, innehåller instrument för kontroll av FPS-villkor"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 226,
+  "fields": {
+    "name": "synkronkompensator",
+    "description": "Apparat för kompensering av reaktiv effekt och spänningsreglering"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 227,
+  "fields": {
+    "name": "synkronoskop",
+    "description": "Instrument tillhörande FPS-utrustning för visning av vinkelskillnad"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 228,
+  "fields": {
+    "name": "systemvärn",
+    "description": "System för att om möjligt rädda kraftsystemet vid drifttillstånd som kan leda till sammanbrott i kraftsystemet"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 229,
+  "fields": {
+    "name": "SÅI",
+    "description": "Snabbåterinkoppling"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 230,
+  "fields": {
+    "name": "T",
+    "description": "Temperaturvakt"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 231,
+  "fields": {
+    "name": "telesamverkan",
+    "description": "Samverkan mellan reläskydd i olika ledningsändar via teleförbindelse"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 232,
+  "fields": {
+    "name": "teletillsats",
+    "description": "Gränssnitt mellan telekommunikationsutrustning och kontrollanläggning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 233,
+  "fields": {
+    "name": "temperaturvakt",
+    "description": "Indikerar för hög temperatur i transformator eller reaktor"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 234,
+  "fields": {
+    "name": "tertiärlindning",
+    "description": "Tredje lindningen på trelindningstransformator"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 235,
+  "fields": {
+    "name": "TFP",
+    "description": "Telefördelningspanel"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 236,
+  "fields": {
+    "name": "timkontroll",
+    "description": "Nödlarmsfunktion, ger lokalt påminnelselarm varje timme som måste kvitteras, om inte startas nödlarmet"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 237,
+  "fields": {
+    "name": "TISSUES",
+    "description": "Ref. till UCA International Users Group TISSUE procedure. Internetsida för rapportering och informering om felaktigheter i IEC 61850"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 238,
+  "fields": {
+    "name": "TM",
+    "description": "Tillmanöver"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 239,
+  "fields": {
+    "name": "tomgående",
+    "description": "Obelastad"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 240,
+  "fields": {
+    "name": "TPE",
+    "description": "Teleprotection equipment. Används för kommunikation mellan två stationer"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 241,
+  "fields": {
+    "name": "TPX",
+    "description": "Strömtransformator anpassad för transienta förhållanden enligt IEC 60044-6"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 242,
+  "fields": {
+    "name": "TPY",
+    "description": "Strömtransformator anpassad för transienta förhållanden enligt IEC 60044-6"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 243,
+  "fields": {
+    "name": "transformatorstation",
+    "description": "Anläggning för transformering och fördelning av elektrisk energi mellan olika spänningsnivåer"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 244,
+  "fields": {
+    "name": "transmissionsnät",
+    "description": "Nät för överföring av stora energimängder, ofta över stora avstånd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 245,
+  "fields": {
+    "name": "trefasig utlösning",
+    "description": "Brytning sker i alla tre faser vid utlösning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 246,
+  "fields": {
+    "name": "trepoligt manöverdon",
+    "description": "Gemensamt manöverdon för tre faser"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 247,
+  "fields": {
+    "name": "tvåpolig manöver",
+    "description": "För manöver erfordras slutning i manöverkretsen för både plus och minus till manöverspolarna"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 248,
+  "fields": {
+    "name": "U0-automatik",
+    "description": "Nollspänningsautomatik"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 249,
+  "fields": {
+    "name": "UCA users group",
+    "description": "UCA International users group. En användargrupp för UCA standard och IEC 61850"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 250,
+  "fields": {
+    "name": "UK",
+    "description": "Utlösningskombination"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 251,
+  "fields": {
+    "name": "UM",
+    "description": "Utlösningsmanöver"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 252,
+  "fields": {
+    "name": "underimpedansstart",
+    "description": "Funktion för start av reläskydd vid låg impedans"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 253,
+  "fields": {
+    "name": "undertid",
+    "description": "Funktion för snabbare felbortkoppling vid tillmanöver av brytare"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 254,
+  "fields": {
+    "name": "UPS",
+    "description": "Uninterrupted power supply, avbrottsfri kraft"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 255,
+  "fields": {
+    "name": "urbleckad",
+    "description": "Frånskiljbar kopplingsplint är i öppet läge"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 256,
+  "fields": {
+    "name": "UTC-tid",
+    "description": "Co-ordinated universal time. Universiell exakt tidsangivelse baserad på atomur"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 257,
+  "fields": {
+    "name": "utjämningsladdning",
+    "description": "Laddning med förhöjd laddningsspänning"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 258,
+  "fields": {
+    "name": "vakt",
+    "description": "Övervakning eller funktion som bygger på mätning av en icke elektrisk storhet t.ex. temperatur"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 259,
+  "fields": {
+    "name": "VHC",
+    "description": "Växelströmshuvudcentral"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 260,
+  "fields": {
+    "name": "VS-system",
+    "description": "Växelströmssystem"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 261,
+  "fields": {
+    "name": "växelriktare",
+    "description": "Apparat för omvandling av likström till växelström"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 262,
+  "fields": {
+    "name": "zon",
+    "description": "Skyddszon"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 263,
+  "fields": {
+    "name": "ZS",
+    "description": "Distansskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 264,
+  "fields": {
+    "name": "ZSo",
+    "description": "Underimpedansskydd"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 265,
+  "fields": {
+    "name": "ÅI",
+    "description": "Återinkoppling"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 266,
+  "fields": {
+    "name": "öbildning",
+    "description": "Uppdelning av större nät i mindre delnät, öar"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 267,
+  "fields": {
+    "name": "överströmsstart",
+    "description": "Funktion för start av reläskydd vid hög ström"
+  }
+},
+{
+  "model": "formulas.term",
+  "pk": 268,
+  "fields": {
+    "name": "övertonsstabiliserat",
+    "description": "Förhöjt funktionsvärde alternativt blockerad funktion då övertonshalten i mätsignalen överstiger ett visst värde"
+  }
+}
+]
