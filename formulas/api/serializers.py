@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from formulas.models import CalculationTool, ConversionTool
+from formulas.models import CalculationTool, ConversionTool, Term
 
 class CalculationToolSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,3 +22,8 @@ class ConversionToolSerializer(serializers.ModelSerializer):
             "formula_info",
             "component",
         ]
+
+class TermSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Term
+        fields = ['id', 'name', 'description']
