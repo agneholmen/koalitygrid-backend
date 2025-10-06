@@ -23,6 +23,8 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         if user is not None:
             # Call the parent class to get tokens
             response = super().post(request, *args, **kwargs)
+            response.data['first_name'] = user.first_name
+            response.data['last_name'] = user.last_name
             return response
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
