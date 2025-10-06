@@ -23,7 +23,12 @@ class ConversionToolSerializer(serializers.ModelSerializer):
             "component",
         ]
 
-class TermSerializer(serializers.ModelSerializer):
+class TermNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Term
+        fields = ['id', 'name']
+
+class TermDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Term
         fields = ['id', 'name', 'description']

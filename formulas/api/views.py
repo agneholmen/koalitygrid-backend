@@ -1,8 +1,9 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from formulas.models import CalculationTool, ConversionTool, Term
-from .serializers import CalculationToolSerializer, ConversionToolSerializer, TermSerializer
+from .serializers import CalculationToolSerializer, ConversionToolSerializer, TermNameSerializer, TermDetailSerializer
 from rest_framework.permissions import AllowAny
 from django.db.models import Q
 
@@ -40,6 +41,23 @@ class SearchTermsView(APIView):
         query = request.GET.get('q', '')
         if query:
             terms = Term.objects.filter(Q(name__icontains=query))[:10]
-            serializer = TermSerializer(terms, many=True)
+            serializer = TermNameSerializer(terms, many=True)
             return Response(serializer.data)
         return Response([])
+    
+class TermListView(APIView):
+    def get(self, request):
+        terms = Term.objects.all().order_by('name')
+        serializer = TermNameSerializer(terms, many=True)
+        return Response(serializer.data)
+    
+class TermDetailView(APIView):
+    def get(self, request, id):
+        try:
+            term = Term.objects.get(pk=id)
+            serializer = TermDetailSerializer(term)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except Term.DoesNotExist:
+            return Response({'error': 'Finns ingen term med denna ID.'}, status=status.HTTP_400_BAD_REQUEST)
+
