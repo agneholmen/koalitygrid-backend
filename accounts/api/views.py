@@ -1,12 +1,9 @@
-from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 from django.core.files.storage import default_storage
-from .serializers import RegisterSerializer
 import logging
 
 logger = logging.getLogger(__name__)
@@ -14,45 +11,6 @@ logger = logging.getLogger(__name__)
 User = get_user_model()
 
 DEFAULT_PROFILE_PHOTO = '/media/defaults/default.png'
-
-class CustomTokenObtainPairView(TokenObtainPairView):
-    def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
-        password = request.data.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            # Call the parent class to get tokens
-            response = super().post(request, *args, **kwargs)
-            response.data['first_name'] = user.first_name
-            response.data['last_name'] = user.last_name
-            return response
-        return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-
-class LogoutView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, *args, **kwargs):
-        response = Response({"detail": "Successfully logged out"}, status=status.HTTP_200_OK)
-        response.delete_cookie('refresh_token')  # If using cookies
-        return response
-
-class RegisterView(APIView):
-    permission_classes = [AllowAny]
-
-    def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            User.objects.create_user(
-                username=serializer.validated_data['username'],
-                email=serializer.validated_data['email'],
-                password=serializer.validated_data['password']
-            )
-            return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 class ChangePasswordView(APIView):
     permission_classes = [IsAuthenticated]
