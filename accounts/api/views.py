@@ -12,25 +12,6 @@ User = get_user_model()
 
 DEFAULT_PROFILE_PHOTO = '/media/defaults/default.png'
 
-class ChangePasswordView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        old_password = request.data.get('old_password')
-        new_password = request.data.get('new_password')
-
-        if not all([old_password, new_password]):
-            return Response({'error': 'All fields are required'}, status=status.HTTP_400_BAD_REQUEST)
-
-        user = request.user
-        if not user.check_password(old_password):
-            return Response({'error': 'Gammalt lösenord är felaktigt'}, status=status.HTTP_400_BAD_REQUEST)
-
-        user.set_password(new_password)
-        user.save()
-        logger.info(f"Password changed for user: {user.username}")
-        return Response({'message': 'Lösenordet har ändrats'}, status=status.HTTP_200_OK)
-
 class ProfilePhotoView(APIView):
     permission_classes = [IsAuthenticated]
 

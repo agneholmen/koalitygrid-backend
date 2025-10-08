@@ -82,6 +82,8 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': config('SECRET_KEY'),
 }
 
 REST_AUTH = {
@@ -91,6 +93,7 @@ REST_AUTH = {
     'JWT_AUTH_HTTPONLY': True,
     'JWT_AUTH_TOKEN_LIFETIME': timedelta(minutes=15),
     'JWT_AUTH_REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'PASSWORD_CHANGE_SERIALIZER': 'accounts.api.serializers.CustomPasswordChangeSerializer',
 }
 
 ACCOUNT_SIGNUP_FIELDS = ['username*', 'email*', 'password*', 'password2*']
@@ -174,3 +177,28 @@ CSRF_TRUSTED_ORIGINS = [
 
 CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript to read CSRF cookie
 CSRF_COOKIE_SAMESITE = 'Lax'  # Compatible with cross-origin requests
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
