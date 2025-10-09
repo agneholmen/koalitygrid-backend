@@ -56,7 +56,6 @@ class CalculationToolCategory(models.Model):
 class CalculationTool(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    formula_key = models.CharField(max_length=255)
     formula_info = models.TextField(blank=True)
     component = models.CharField(max_length=255, blank=True)
     category = models.ForeignKey(CalculationToolCategory,

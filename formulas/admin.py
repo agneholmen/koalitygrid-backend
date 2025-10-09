@@ -22,7 +22,7 @@ class TemplateAdmin(admin.ModelAdmin):
 
 @admin.register(CalculationTool)
 class CalculationToolAdmin(admin.ModelAdmin):
-    list_display = ['name', 'description', 'formula_key', 'component', 'enabled']
+    list_display = ['name', 'description', 'component', 'enabled']
 
 @admin.register(CalculationToolCategory)
 class CalculationToolCategoryAdmin(admin.ModelAdmin):
