@@ -19,7 +19,6 @@
   "fields": {
     "name": "Spänningsfall",
     "description": "test",
-    "formula_key": "voltage-drop",
     "formula_info": "",
     "component": "",
     "category": 1,
@@ -35,7 +34,6 @@
   "fields": {
     "name": "Ström",
     "description": "Denna kalkylator hjälper dig att beräkna strömmen (Ampere) i en elektrisk krets baserat på de angivna parametrarna. Välj vilken typ av ström (likström, enfas eller trefas växelström) och vilken beräkningsmetod du vill använda. Fyll i de relevanta fälten för att få en korrekt beräkning.\r\n\r\nResultatet visar den beräknade strömmen i Ampere.",
-    "formula_key": "current",
     "formula_info": "**Ohm's lag (Spänning / Resistans):**\r\n\r\n$$\r\nI = \\frac{V}{R}\r\n$$\r\n\r\n**Spänning / Impedans:**\r\n\r\n$$\r\nI = \\frac{V}{Z}\r\n$$\r\n\r\n**Spänning / Effekt (Enfas AC/DC):**\r\n\r\n$$\r\nI = \\frac{P}{V \\cdot \\cos\\phi} \\quad \\text{(Aktiv effekt } P \\text{)}\r\n\\\\\r\nI = \\frac{S}{V} \\quad \\text{(Skenbar effekt } S \\text{)}\r\n$$\r\n\r\n**Spänning / Effekt (Trefas AC):**\r\n\r\n$$\r\nI = \\frac{P}{\\sqrt{3} \\cdot V \\cdot \\cos\\phi} \\quad \\text{(Aktiv effekt } P \\text{)}\r\n\\\\\r\nI = \\frac{S}{\\sqrt{3} \\cdot V} \\quad \\text{(Skenbar effekt } S \\text{)}\r\n$$\r\n\r\n**Effekt / Impedans (Enfas AC/DC):**\r\n\r\n$$\r\nI = \\sqrt{\\frac{P}{Z \\cdot \\cos\\phi}} \\quad \\text{(Aktiv effekt } P \\text{)}\r\n\\\\\r\nI = \\sqrt{\\frac{S}{Z}} \\quad \\text{(Skenbar effekt } S \\text{)}\r\n$$\r\n\r\n**Effekt / Impedans (Trefas AC):**\r\n\r\n$$\r\nI = \\sqrt{\\frac{P}{\\sqrt{3} \\cdot Z \\cdot \\cos\\phi}} \\quad \\text{(Aktiv effekt } P \\text{)}\r\n\\\\\r\nI = \\sqrt{\\frac{S}{\\sqrt{3} \\cdot Z}} \\quad \\text{(Skenbar effekt } S \\text{)}\r\n$$\r\n\r\n**Effekt / Resistans (Enfas AC/DC):**\r\n\r\n$$\r\nI = \\sqrt{\\frac{P}{R}}\r\n$$\r\n\r\n**Effekt / Resistans (Trefas AC):**\r\n\r\n$$\r\nI = \\sqrt{\\frac{P}{\\sqrt{3} \\cdot R}}\r\n$$\r\n\r\n**Där:**\r\n\r\n- $I$ = Ström (Ampere)\r\n- $V$ = Spänning (Volt)\r\n- $P$ = Aktiv effekt (Watt)\r\n- $S$ = Skenbar effekt (Volt-Ampere)\r\n- $R$ = Resistans (Ohm)\r\n- $Z$ = Impedans (Ohm)\r\n- $\\cos\\phi$ = Effektfaktor (cosinus för fasvinkeln)\r\n- $\\sin\\phi$ = Sinus för fasvinkeln\r\n- $\\tan\\phi$ = Tangens för fasvinkeln\r\n- $\\phi$ = Fasvinkel i radianer eller grader",
     "component": "CurrentCalculator",
     "category": 1,
@@ -51,7 +49,6 @@
   "fields": {
     "name": "Batteritid",
     "description": "Denna kalkylator hjälper dig att uppskatta hur länge ett batteri eller ett batteripaket kan driva en viss last. Fyll i fälten nedan för att få en korrekt beräkning.\r\n\r\n- **Anslutning:** Välj hur batterierna är anslutna. \"Singel\" för ett enskilt batteri. \"I serie\" adderar spänningen men behåller samma kapacitet. \"Parallellt\" adderar kapaciteten men behåller samma spänning.\r\n- **Antal batterier:** Antalet enskilda batterier i ditt system. Detta fält låses till 1 om \"Singel\" är valt för anslutning.\r\n- **Spänning (V):** Den nominella spänningen för ett enskilt batteri i Volt.\r\n- **Kapacitet (Ah/kWh):** Ett enskilt batteris kapacitet i Ampere-timmar (Ah) eller KiloWatt-timmar (kWh). Om kWh anges konverteras det till Ah baserat på den totala systemspänningen.\r\n- **Last (W, A, mA, VA):** Den elektriska lasten som batteriet ska driva. Kan anges i Watt (W), Ampere (A), milliAmpere (mA) eller Volt-Ampere (VA). Lasten i Ampere är avgörande för beräkningen.\r\n- **Peukerts koefficient:** En faktor som beskriver hur ett batteris användbara kapacitet minskar vid högre urladdningsströmmar. Ett värde på 1 innebär att batteriets kapacitet är konstant oavsett urladdningsström (idealt batteri). Ett högre värde (typiskt mellan 1 och 2) indikerar att den användbara kapaciteten minskar mer vid högre strömmar. Standardvärdet är 1.\r\n- **Djup för Utflöde (DOD):** Procentandelen av batteriets totala kapacitet som används under en urladdningscykel. Att inte ladda ur batteriet helt (d.v.s. använda ett DOD under 100%) kan förlänga batteriets livslängd.\r\n\r\nResultatet visar den beräknade batteritiden i timmar, samt total spänning, kapacitet, lastström och den antagna verkningsgraden (100%).",
-    "formula_key": "battery-life",
     "formula_info": "$$\r\nt = H \\cdot \\left(\\frac{C}{I \\cdot H}\\right)^k\r\n$$\r\n\r\n**Där:**\r\n\r\n- $t$ = Tid (Timmar)\r\n- $H$ = Nominell urladdningstid = 20 (Timmar)\r\n- $C$ = Kapacitet (Ah) (*Konverteras från kWh om valt*)\r\n- $I$ = Last (A)\r\n- $k$ = Peukert koefficient (1 - 2)",
     "component": "BatteryLifeCalculator",
     "category": 1,
@@ -67,7 +64,6 @@
   "fields": {
     "name": "Max ledningslängd (ΔV)",
     "description": "test",
-    "formula_key": "max-wire-length",
     "formula_info": "",
     "component": "",
     "category": 1,
@@ -83,7 +79,6 @@
   "fields": {
     "name": "Kortslutningsström med transformatorstation",
     "description": "test",
-    "formula_key": "short-circuit-current",
     "formula_info": "",
     "component": "",
     "category": 1,
@@ -91,6 +86,36 @@
     "created_at": "2025-07-25T07:23:03.456Z",
     "updated_at": "2025-08-27T15:27:22.514Z",
     "enabled": false
+  }
+},
+{
+  "model": "formulas.calculationtool",
+  "pk": 6,
+  "fields": {
+    "name": "Skenbar Effekt",
+    "description": "Denna kalkylator hjälper dig att beräkna den skenbara effekten (Volt-Ampere) i en elektrisk krets. Skenbar effekt är den totala effekten som flödar i en växelströmskrets, bestående av både aktiv och reaktiv effekt. Fyll i spänning och ström för att få en korrekt beräkning.\r\n\r\nResultatet visas i Volt-Ampere (VA) och kiloVolt-Ampere (kVA).",
+    "formula_info": "**Spänning / Ström (Likström eller Enfas Växelström):**\r\n\r\n$$\r\nS = U \\cdot I\r\n$$\r\n\r\n**Spänning / Ström (Trefas Växelström):**\r\n\r\n$$\r\nS = \\sqrt3 \\cdot U \\cdot I\r\n$$",
+    "component": "ApparentPowerCalculator",
+    "category": 1,
+    "created_by": 1,
+    "created_at": "2025-10-09T13:15:11.090Z",
+    "updated_at": "2025-10-09T14:27:57.195Z",
+    "enabled": true
+  }
+},
+{
+  "model": "formulas.calculationtool",
+  "pk": 7,
+  "fields": {
+    "name": "Motorström",
+    "description": "Detta verktyg beräknar den nominella strömmen (Ampere) för en elmotor baserat på dess märkeffekt, spänning och andra parametrar.\r\n\r\n- Effekt: Ange motorns effekt. Detta är vanligtvis uteffekten på motoraxeln. Du kan ange den i Watt (W), kilowatt (kW), Hästkrafter (HP), Volt-Ampere (VA) eller kilovolt-Ampere (kVA).\r\n- Spänning: Ange driftspänningen. För trefas är detta huvudspänningen (mellan två faser). För enfas är det fasspänningen (mellan fas och nolla).\r\n- Effektfaktor (cos φ): Förhållandet mellan aktiv effekt och skenbar effekt. Gäller endast för växelströmsmotorer.\r\n- Verkningsgrad (η): Motorns effektivitet i att omvandla elektrisk energi till mekanisk energi. Anges i procent.\r\n\r\nNotera: Om du anger effekten i VA eller kVA (skenbar effekt), antas detta vara motorns elektriska ineffekt, och fälten för effektfaktor och verkningsgrad kommer inte att användas i beräkningen.",
+    "formula_info": "**Trefas Växelström (AC):**\r\n$$\r\nI = \\frac{P}{\\sqrt{3} \\cdot U \\cdot \\cos\\phi \\cdot \\eta}\r\n$$\r\n\r\n**Enfas Växelström (AC):**\r\n$$\r\nI = \\frac{P}{U \\cdot \\cos\\phi \\cdot \\eta}\r\n$$\r\n\r\n**Växlande tvåfas (AC):**\r\n$$\r\nI = \\frac{P}{U \\cdot \\cos\\phi \\cdot \\eta}\r\n$$\r\n\r\n**Likström (DC):**\r\n$$\r\nI = \\frac{P}{U \\cdot \\eta}\r\n$$\r\n\r\n**Där:**\r\n\r\n- $I$ = Ström (Ampere)\r\n- $P$ = Motorns uteffekt (Watt)\r\n- $U$ = Spänning (Volt)\r\n- $\\cos\\phi$ = Effektfaktor\r\n- $\\eta$ = Verkningsgrad (decimalform, t.ex. 0.90)",
+    "component": "MotorCurrentCalculator",
+    "category": 2,
+    "created_by": 1,
+    "created_at": "2025-10-09T14:35:04.615Z",
+    "updated_at": "2025-10-10T08:15:57.405Z",
+    "enabled": true
   }
 },
 {
