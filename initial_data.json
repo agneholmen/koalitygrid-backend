@@ -18,14 +18,14 @@
   "pk": 1,
   "fields": {
     "name": "Spänningsfall",
-    "description": "test",
-    "formula_info": "",
-    "component": "",
+    "description": "Denna kalkylator hjälper dig att beräkna spänningsfallet i en elektrisk krets baserat på de angivna parametrarna. Spänningsfall är viktigt att beakta för att säkerställa att elektrisk utrustning fungerar korrekt och effektivt. Ett för högt spänningsfall kan leda till överhettning, minskad livslängd för utrustning och energiförluster.\r\n\r\nFyll i alla fält med giltiga siffror för att få en korrekt beräkning. Resultatet visar beräknad ström, spänningsfall i volt och i procent av den totala spänningen.",
+    "formula_info": "**Likström (DC) / Enfas växelström (AC):**\r\n\r\n$$\r\n\\Delta U = \\frac{2 \\cdot \\rho \\cdot L \\cdot I}{A}\r\n$$\r\n\r\n**Trefas växelström (AC):**\r\n\r\n$$\r\n\\Delta U = \\frac{\\sqrt{3} \\cdot \\rho \\cdot L \\cdot I}{A}\r\n$$\r\n\r\n**Där:**\r\n\r\n- $\\Delta U$ = Spänningsfall (Volt)\r\n- $\\rho$ = Resistivitet för ledarmaterialet (Ohm·mm²/m)\r\n- $L$ = Linjelängd (meter)\r\n- $I$ = Ström (Ampere)\r\n- $A$ = Ledarens area (mm²)\r\n\r\n$$\r\n$$\r\n\r\n**Temperaturjustering av resistivitet:**\r\n\r\nResistiviteten ($\\rho$) beror på temperaturen. Den justeras med följande formel:\r\n\r\n$$\r\n\\rho_{temp} = \\rho_{20C} \\cdot (1 + \\alpha \\cdot (T - 20))\r\n$$\r\n\r\n**Där:**\r\n\r\n- $\\rho_{temp}$ = Resistivitet vid arbetstemperatur\r\n- $\\rho_{20C}$ = Resistivitet vid $20^\\circ C$ (t.ex. Koppar: $0.0175 \\Omega \\cdot mm^2/m$, Aluminium: $0.028 \\Omega \\cdot mm^2/m$)\r\n- $\\alpha$ = Temperaturkoefficient (t.ex. Koppar: $0.00393 /^\\circ C$, Aluminium: $0.00403 /^\\circ C$)",
+    "component": "VoltageDropCalculator",
     "category": 1,
     "created_by": 1,
     "created_at": "2025-07-25T07:20:12.455Z",
-    "updated_at": "2025-08-27T15:27:37.115Z",
-    "enabled": false
+    "updated_at": "2025-10-10T16:32:34.873Z",
+    "enabled": true
   }
 },
 {
