@@ -15,7 +15,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = [config('ALLOWED_HOSTS', default='')]
+ALLOWED_HOSTS = [config('ALLOWED_HOSTS'.split(' '), default='')]
 
 
 # Application definition
@@ -166,11 +166,11 @@ AUTH_USER_MODEL = 'accounts.User'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-CORS_ALLOWED_ORIGINS = [config('CORS_ALLOWED_ORIGINS', default='')]
+CORS_ALLOWED_ORIGINS = [config('CORS_ALLOWED_ORIGINS'.split(' '), default='')]
 
 CORS_ALLOW_CREDENTIALS = True
 
-CSRF_TRUSTED_ORIGINS = [config('CSRF_TRUSTED_ORIGINS', default='')]
+CSRF_TRUSTED_ORIGINS = [config('CSRF_TRUSTED_ORIGINS'.split(' '), default='')]
 
 CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript to read CSRF cookie
 CSRF_COOKIE_SAMESITE = 'Lax'  # Compatible with cross-origin requests
