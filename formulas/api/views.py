@@ -37,6 +37,8 @@ class ConversionToolListView(ListAPIView):
     queryset = ConversionTool.objects.filter(enabled=True).order_by('name')
 
 class SearchTermsView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request):
         query = request.GET.get('q', '')
         if query:
@@ -46,12 +48,16 @@ class SearchTermsView(APIView):
         return Response([])
     
 class TermListView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request):
         terms = Term.objects.all().order_by('name')
         serializer = TermNameSerializer(terms, many=True)
         return Response(serializer.data)
     
 class TermDetailView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request, id):
         try:
             term = Term.objects.get(pk=id)
