@@ -40,12 +40,23 @@ class SearchTermsView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        query = request.GET.get('q', '')
-        if query:
-            terms = Term.objects.filter(Q(name__icontains=query))[:10]
-            serializer = TermNameSerializer(terms, many=True)
-            return Response(serializer.data)
-        return Response([])
+        name_query = request.GET.get('q', '').strip()
+        tag_query = request.GET.get('tag', '').strip()
+        
+        if not name_query and not tag_query:
+            return Response([])
+        
+        queryset = Term.objects.all()
+        
+        if name_query:
+            queryset = queryset.filter(Q(name__icontains=name_query))
+        
+        if tag_query:
+            queryset = queryset.filter(Q(tags__name__icontains=tag_query))
+        
+        terms = queryset.distinct()[:10]
+        serializer = TermNameSerializer(terms, many=True)
+        return Response(serializer.data)
     
 class TermListView(APIView):
     permission_classes = [AllowAny]
