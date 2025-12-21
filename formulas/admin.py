@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 from .models import (
-    CalculationTool, CalculationToolCategory, ConversionTool, Document, Favorite, Formula, Template, Term
+    CalculationTool, CalculationToolCategory, ConversionTool, Document, 
+    Favorite, Formula, Template, Term
 )
 
 @admin.register(Document)
